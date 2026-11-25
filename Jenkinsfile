@@ -10,7 +10,7 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
+        stage('Git Clone') {
             steps {
                 git branch: 'main',
                 url: 'https://github.com/satyamverma7380-byte/devops-java-app.git'
