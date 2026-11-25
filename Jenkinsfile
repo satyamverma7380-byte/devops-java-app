@@ -110,12 +110,12 @@ EOF
         success {
             emailext (
                 subject: "Build successfully Dost",
-                body: "Hello
-                Jenkins Build completed successfully
+                body: "Hello ''\n''
+                Jenkins Build completed successfully ''\n''
                 
-                Enjoy the day
+                Enjoy the day !! ''\n''
                 
-                Regard 
+                Regard  ''\n''
                 Satyam Verma",
                 to: "satyamverma7380@gmail.com,"
             )
