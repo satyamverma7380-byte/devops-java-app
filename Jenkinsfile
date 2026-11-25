@@ -118,10 +118,8 @@ EOF
                 
                 Regard
                 Satyam Verma """,
-                
-                to: "mskrishivani11@gmail.com",
-                cc: "satyamverma7380@gmail.com"
-            )
+                to: "satyamverma7380@gmail.com",
+                    )
         }
 
         failure {
