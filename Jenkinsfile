@@ -109,11 +109,10 @@ EOF
     post {
         success {
             emailext (
-                subject: "Congratulations on your wedding Aditi (My Dear's Loverly friend)",
-                body: """ Wishing you Aditi a lifetime of love, happiness, understanding, and togetherness.
-                May your new journey be filled with beautiful memories and endless blessings.
+                subject: "build Successfull",
+                body: """ Hello
                 
-                Best wishes to the newly married couple!
+                Build not completed successfully.
                 Enjoy the day !!
                 
                 Regard
