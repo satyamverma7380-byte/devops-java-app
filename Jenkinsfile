@@ -108,11 +108,19 @@ EOF
 
     post {
         success {
-            echo 'CI/CD pipeline completed successfully!'
+            emailext (
+                subject: "build successfully",
+                body: "Build completed successfully",
+                to: "satyamverma7380@gmail.com"
+            )
         }
 
         failure {
-            echo 'Pipeline failed. Check Jenkins console output.'
+            emailext (
+                subject: "build failed",
+                body: "Build not completed successfully",
+                to: "satyamverma7380@gmail.com"
+            )
         }
     }
 }
