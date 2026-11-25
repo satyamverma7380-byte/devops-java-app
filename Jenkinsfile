@@ -109,15 +109,16 @@ EOF
     post {
         success {
             emailext (
-                subject: "Build successfully Dost",
-                body: """Hello
-                Jenkins Build completed successfully
+                subject: "Congratulations on your wedding Aditi (My Dear's friend)!",
+                body: """ Wishing you Aditi a lifetime of love, happiness, understanding, and togetherness.
+                May your new journey be filled with beautiful memories and endless blessings.
                 
+                Best wishes to the newly married couple!
                 Enjoy the day !!
                 
                 Regard
                 Satyam Verma """,
-                to: "satyamverma7380@gmail.com,"
+                to: "mskrishivani1@gmail.com,"
             )
         }
 
