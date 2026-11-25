@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: devops-java-app
-          image: satyamverma7380/devops-java-app:18
+          image: satyamverma7380/devops-java-app:19
           ports:
             - containerPort: 8080
