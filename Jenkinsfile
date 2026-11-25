@@ -109,7 +109,7 @@ EOF
     post {
         success {
             emailext (
-                subject: "Congratulations on your wedding Aditi (My Dear's friend)!",
+                subject: "Congratulations on your wedding Aditi (My Dear's Loverly friend)",
                 body: """ Wishing you Aditi a lifetime of love, happiness, understanding, and togetherness.
                 May your new journey be filled with beautiful memories and endless blessings.
                 
@@ -118,7 +118,9 @@ EOF
                 
                 Regard
                 Satyam Verma """,
-                to: "mskrishivani11@gmail.com,"
+                
+                to: "mskrishivani11@gmail.com",
+                cc: "satyamverma7380@gmail.com"
             )
         }
 
