@@ -109,9 +109,17 @@ EOF
     post {
         success {
             emailext (
-                subject: "build successfully",
-                body: "Build completed successfully",
-                to: "satyamverma7380@gmail.com"
+                subject: "Build successfully Dost",
+                body: "
+                Hello
+                Jenkins Build completed successfully
+                
+                Enjoy the day
+                
+                Regard 
+                Satyam Verma
+                ",
+                to: "satyamverma7380@gmail.com,"
             )
         }
 
