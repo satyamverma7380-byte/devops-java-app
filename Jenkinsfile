@@ -1,4 +1,3 @@
-
 pipeline {
 
     agent any
@@ -6,6 +5,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "satyamverma7380/devops-java-app"
         DOCKER_CREDENTIALS = "dockerhub-credentials"
+        GITHUB_CREDENTIALS = "github-credentials"
     }
 
     stages {
@@ -19,7 +19,7 @@ pipeline {
 
         stage('Build Application') {
             steps {
-                echo 'Building Java application using Docker'
+                echo 'Building Java application using Docker multi-stage build'
             }
         }
 
@@ -51,16 +51,68 @@ pipeline {
                 }
             }
         }
+
+        stage('Update Kubernetes Manifest') {
+            steps {
+                sh '''
+                    sed -i -E \
+                    "s|(^[[:space:]]*image:[[:space:]]*).*$|\\1${DOCKER_IMAGE}:${BUILD_NUMBER}|" \
+                    k8s/deployment.yaml
+
+                    git config user.name "Jenkins"
+                    git config user.email "jenkins@users.noreply.github.com"
+
+                    git add k8s/deployment.yaml
+
+                    if ! git diff --cached --quiet; then
+                        git commit -m "Update Docker image to ${BUILD_NUMBER}"
+                    else
+                        echo "No manifest changes detected"
+                    fi
+                '''
+            }
+        }
+
+        stage('Push Changes to GitHub') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: "${GITHUB_CREDENTIALS}",
+                        usernameVariable: 'GITHUB_USER',
+                        passwordVariable: 'GITHUB_TOKEN'
+                    )
+                ]) {
+                    sh '''
+                        set -eu
+
+                        cat > "$WORKSPACE/.git-askpass.sh" <<'EOF'
+#!/bin/sh
+case "$1" in
+    *Username*) printf '%s\\n' "$GITHUB_USER" ;;
+    *Password*) printf '%s\\n' "$GITHUB_TOKEN" ;;
+esac
+EOF
+
+                        chmod 700 "$WORKSPACE/.git-askpass.sh"
+
+                        trap 'rm -f "$WORKSPACE/.git-askpass.sh"' EXIT
+
+                        GIT_ASKPASS="$WORKSPACE/.git-askpass.sh" \
+                        GIT_TERMINAL_PROMPT=0 \
+                        git push origin HEAD:main
+                    '''
+                }
+            }
+        }
     }
 
     post {
         success {
-            echo 'CI Pipeline completed successfully!'
+            echo 'CI/CD pipeline completed successfully!'
         }
 
         failure {
-            echo 'CI Pipeline failed. Check Jenkins console output.'
+            echo 'Pipeline failed. Check Jenkins console output.'
         }
     }
 }
-
