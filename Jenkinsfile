@@ -123,7 +123,7 @@ EOF
 
         failure {
             emailext (
-                subject: "build failed",
+                subject: "checking failure ",
                 body: "Build not completed successfully",
                 to: "satyamverma7380@gmail.com"
             )
